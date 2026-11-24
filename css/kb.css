@@ -39,7 +39,7 @@
 .kb-deep .kb-rule{background:var(--kb-acc-lift)}
 
 .kb-grid{display:grid;gap:38px}
-@media(min-width:860px){.kb-two{grid-template-columns:1fr 1fr;align-items:start}}
+@media(min-width:760px){.kb-two{grid-template-columns:1fr 1fr;align-items:start}}
 .kb-shot img,.kb-portrait img{width:100%;height:auto;display:block;border-radius:3px}
 .kb-sand{background:var(--kb-sand)}
 .kb-deep{background:var(--kb-deep)}
@@ -82,11 +82,87 @@
 .kb-foot a{color:var(--kb-acc-lift)}
 .kb-foot .kb-wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
-@media(max-width:699px){
-  /* the nav wraps to two lines on a phone, so it flows instead of sitting over the hero */
+
+/* ---------------------------------------------------------------
+   Phone. Designed, not stacked.
+   Fixed decisions:
+   1 the six nav links wrapped onto two rows, so they now sit on one
+     scrolling row with 44px tap targets and a fade to show there is more
+   2 the hero photograph was invisible behind a flat scrim, so the top of
+     the frame is now clear and the type sits on a solid panel below it
+   3 the hero and the about portrait showed the same face twice in a row,
+     so the about portrait is dropped on a phone
+   4 every inline section picture is cropped to one ratio so the rhythm
+     down the page is even
+   5 the gallery runs two up and the course list two up, which takes
+     roughly three thousand pixels of scrolling out of the page
+   --------------------------------------------------------------- */
+@media(max-width:759px){
+  .kb{font-size:16.5px}
+  .kb section{padding:48px 0}
+  .kb-wrap{padding:0 16px}
+  .kb-grid{gap:24px}
+
   .kb-nav{position:static}
-  .kb-nav .kb-wrap{padding-top:10px;padding-bottom:10px}
-  .kb-hero{margin-top:0;min-height:auto;background-position:62% center}
-  .kb-hero .kb-scrim{background:linear-gradient(180deg,rgba(14,26,22,.91) 0%,rgba(14,26,22,.89) 60%,rgba(14,26,22,.91) 100%)}
-  .kb section{padding:58px 0}
+  .kb-nav .kb-wrap{display:block;padding:0 0 0 16px}
+  .kb-brand{display:block;padding:14px 16px 10px 0;font-size:16px}
+  .kb-links{
+    display:flex;flex-wrap:nowrap;gap:0;overflow-x:auto;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+    mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent 100%);
+  }
+  .kb-links::-webkit-scrollbar{display:none}
+  .kb-links a{
+    flex:0 0 auto;white-space:nowrap;
+    min-height:44px;display:flex;align-items:center;
+    padding:0 14px 0 0;margin-right:4px;font-size:15px;
+  }
+
+  .kb-hero{
+    margin-top:0;min-height:0;display:block;
+    background-position:68% 30%;background-size:cover;
+  }
+  /* tied to the 64vw padding below, so the type never sits on the photo */
+  .kb-hero .kb-scrim{
+    background:linear-gradient(180deg,
+      rgba(16,28,24,0) 0,
+      rgba(16,28,24,0) 44vw,
+      rgba(16,28,24,.90) 56vw,
+      var(--kb-deep) 63vw);
+  }
+  .kb-hero .kb-wrap{padding-top:64vw;padding-bottom:40px}
+  .kb-hero h1{max-width:none;font-size:clamp(30px,8.4vw,40px)}
+  .kb-hero p{font-size:17px}
+
+  /* the hero already carries her face, so do not repeat it straight after */
+  #about .kb-portrait{display:none}
+
+  /* one ratio for every inline section picture */
+  .kb-shot img{aspect-ratio:4/3;object-fit:cover;height:auto}
+
+  .kb-cards{gap:16px}
+  .kb-card{padding-top:12px}
+
+  .kb-list li{padding:10px 0}
+  /* the eight course names are short, so they run two up */
+  /* equal height rows so the rules under each pair line up */
+  #teaching .kb-list{display:grid;grid-template-columns:1fr 1fr;column-gap:16px;grid-auto-rows:1fr}
+  #teaching .kb-list li{display:flex;align-items:flex-start}
+
+  .kb-gallery{grid-template-columns:1fr 1fr;gap:8px}
+  .kb-gallery img{aspect-ratio:1/1}
+
+  .kb-quote{padding-left:16px}
+  .kb-quote p{font-size:17.5px}
+
+  .kb-time li{padding-bottom:24px}
+
+  .kb-foot{padding:32px 0}
+  .kb-foot .kb-wrap{flex-direction:column;gap:12px}
+  .kb-foot a{min-height:44px;display:inline-flex;align-items:center}
+}
+
+@media(max-width:359px){
+  .kb-wrap{padding:0 14px}
+  #teaching .kb-list{grid-template-columns:1fr}
 }
